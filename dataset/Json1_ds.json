@@ -1,0 +1,21 @@
+{
+    "name": "Json1_ds",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AmazonS31",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "Json",
+        "typeProperties": {
+            "location": {
+                "type": "AmazonS3Location",
+                "bucketName": "ac-bucket-01",
+                "folderPath": "order-items",
+                "fileName": "order_items.json"
+            }
+        },
+        "schema": {}
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}

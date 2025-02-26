@@ -1,0 +1,24 @@
+{
+    "name": "AzureSqlDatabase1_ls",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "annotations": [],
+        "type": "AzureSqlDatabase",
+        "typeProperties": {
+            "server": "ankita-sql-server.database.windows.net",
+            "database": "ac-sql-db",
+            "encrypt": "mandatory",
+            "trustServerCertificate": false,
+            "authenticationType": "SQL",
+            "userName": "ac-sql-user",
+            "password": {
+                "type": "AzureKeyVaultSecret",
+                "store": {
+                    "referenceName": "AzureKeyVault1_ls",
+                    "type": "LinkedServiceReference"
+                },
+                "secretName": "sql-password"
+            }
+        }
+    }
+}

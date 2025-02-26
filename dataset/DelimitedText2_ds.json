@@ -1,0 +1,62 @@
+{
+    "name": "DelimitedText2_ds",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AzureDataLakeStorage1_ls",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "DelimitedText",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "fileName": "customers.csv",
+                "folderPath": "customers",
+                "fileSystem": "sales"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "quoteChar": "\""
+        },
+        "schema": [
+            {
+                "name": "customer_id",
+                "type": "String"
+            },
+            {
+                "name": "customer_fname",
+                "type": "String"
+            },
+            {
+                "name": "customer_lname",
+                "type": "String"
+            },
+            {
+                "name": "username",
+                "type": "String"
+            },
+            {
+                "name": "password",
+                "type": "String"
+            },
+            {
+                "name": "address",
+                "type": "String"
+            },
+            {
+                "name": "city",
+                "type": "String"
+            },
+            {
+                "name": "state",
+                "type": "String"
+            },
+            {
+                "name": "pincode",
+                "type": "String"
+            }
+        ]
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}

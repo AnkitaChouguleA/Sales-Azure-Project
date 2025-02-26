@@ -1,0 +1,6 @@
+selected resource name:		sales_pl
+selected resource type:		pipeline
+factory name:			ankita-sales-df
+factory location:		centralindia
+subscription id:		5c51a581-2019-4768-9e65-b7ebcf9bc9cf
+time of download (UTC):		Wed, 26 Feb 2025 16:46:02 GMT

@@ -1,0 +1,28 @@
+{
+    "name": "trigger1",
+    "properties": {
+        "annotations": [],
+        "runtimeState": "Started",
+        "pipelines": [
+            {
+                "pipelineReference": {
+                    "referenceName": "sales_pl",
+                    "type": "PipelineReference"
+                },
+                "parameters": {
+                    "filename": "@triggerBody().filename"
+                }
+            }
+        ],
+        "type": "BlobEventsTrigger",
+        "typeProperties": {
+            "blobPathBeginsWith": "/sales/blobs/landing",
+            "blobPathEndsWith": ".csv",
+            "ignoreEmptyBlobs": true,
+            "scope": "/subscriptions/5c51a581-2019-4768-9e65-b7ebcf9bc9cf/resourceGroups/ankita-chougule-rg/providers/Microsoft.Storage/storageAccounts/ankitaadls",
+            "events": [
+                "Microsoft.Storage.BlobCreated"
+            ]
+        }
+    }
+}

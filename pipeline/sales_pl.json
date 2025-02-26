@@ -1,0 +1,329 @@
+{
+    "name": "sales_pl",
+    "properties": {
+        "description": "This pipeline first copies data from AmazonS3 to ADLS Gen2 and then executes the databricks notebook. ",
+        "activities": [
+            {
+                "name": "Notebook1",
+                "type": "DatabricksNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Copy data S3 to ADLS order_items",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "Copy data ADLS to SQL DB customers",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Users/navalgundeakki@outlook.com/sales-project",
+                    "baseParameters": {
+                        "filename": {
+                            "value": "@pipeline().parameters.filename",
+                            "type": "Expression"
+                        }
+                    }
+                },
+                "linkedServiceName": {
+                    "referenceName": "AzureDatabricks2_ls",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "Copy data S3 to ADLS order_items",
+                "description": "This activity copies order_items file from Amazon S3 to ADLS Gen2 ",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "AmazonS3ReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "sink": {
+                        "type": "DelimitedTextSink",
+                        "storeSettings": {
+                            "type": "AzureBlobFSWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextWriteSettings",
+                            "quoteAllText": true,
+                            "fileExtension": ".csv"
+                        }
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "mappings": [
+                            {
+                                "source": {
+                                    "path": "$['order_item_id']"
+                                },
+                                "sink": {
+                                    "name": "order_item_id"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['order_item_order_id']"
+                                },
+                                "sink": {
+                                    "name": "order_item_order_id"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['order_item_product_id']"
+                                },
+                                "sink": {
+                                    "name": "order_item_product_id"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['order_item_quantity']"
+                                },
+                                "sink": {
+                                    "name": "order_item_quantity"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['order_item_subtotal']"
+                                },
+                                "sink": {
+                                    "name": "order_item_subtotal"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['order_item_product_price']"
+                                },
+                                "sink": {
+                                    "name": "order_item_product_price"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "inputs": [
+                    {
+                        "referenceName": "Json1_ds",
+                        "type": "DatasetReference"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "DelimitedText1_ds",
+                        "type": "DatasetReference"
+                    }
+                ]
+            },
+            {
+                "name": "Copy data ADLS to SQL DB customers",
+                "description": "This activity copies customers.csv from ADLS Gen 2 to Azure SQL database.",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "DelimitedTextSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextReadSettings"
+                        }
+                    },
+                    "sink": {
+                        "type": "AzureSqlSink",
+                        "writeBehavior": "upsert",
+                        "upsertSettings": {
+                            "useTempDB": true,
+                            "keys": [
+                                "customer_id"
+                            ]
+                        },
+                        "sqlWriterUseTableLock": false,
+                        "disableMetricsCollection": false
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "mappings": [
+                            {
+                                "source": {
+                                    "name": "customer_id",
+                                    "type": "String",
+                                    "physicalType": "String"
+                                },
+                                "sink": {
+                                    "name": "customer_id",
+                                    "type": "Int32",
+                                    "physicalType": "int"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "customer_fname",
+                                    "type": "String",
+                                    "physicalType": "String"
+                                },
+                                "sink": {
+                                    "name": "customer_fname",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "customer_lname",
+                                    "type": "String",
+                                    "physicalType": "String"
+                                },
+                                "sink": {
+                                    "name": "customer_lname",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "username",
+                                    "type": "String",
+                                    "physicalType": "String"
+                                },
+                                "sink": {
+                                    "name": "customer_email",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "password",
+                                    "type": "String",
+                                    "physicalType": "String"
+                                },
+                                "sink": {
+                                    "name": "customer_password",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "address",
+                                    "type": "String",
+                                    "physicalType": "String"
+                                },
+                                "sink": {
+                                    "name": "customer_street",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "city",
+                                    "type": "String",
+                                    "physicalType": "String"
+                                },
+                                "sink": {
+                                    "name": "customer_city",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "state",
+                                    "type": "String",
+                                    "physicalType": "String"
+                                },
+                                "sink": {
+                                    "name": "customer_state",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "pincode",
+                                    "type": "String",
+                                    "physicalType": "String"
+                                },
+                                "sink": {
+                                    "name": "customer_zipcode",
+                                    "type": "String",
+                                    "physicalType": "varchar"
+                                }
+                            }
+                        ],
+                        "typeConversion": true,
+                        "typeConversionSettings": {
+                            "allowDataTruncation": true,
+                            "treatBooleanAsNumber": false
+                        }
+                    }
+                },
+                "inputs": [
+                    {
+                        "referenceName": "DelimitedText2_ds",
+                        "type": "DatasetReference"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "AzureSqlTable1_ds",
+                        "type": "DatasetReference"
+                    }
+                ]
+            }
+        ],
+        "parameters": {
+            "filename": {
+                "type": "string"
+            }
+        },
+        "annotations": [],
+        "lastPublishTime": "2025-02-26T10:49:00Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}
