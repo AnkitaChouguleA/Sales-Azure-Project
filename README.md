@@ -32,7 +32,7 @@ _Diagram showing the structure of the Storage Account._
 
 - **Create a Databricks Workspace** to execute Spark code for necessary data validation checks.
 
-![Databricks Workspace](Images\Databricks_Workspace.png)
+![Databricks Workspace](Images/Databricks_Workspace.png)
 
 _Diagram showing the Databricks workspace._
 
