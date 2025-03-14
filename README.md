@@ -23,7 +23,7 @@ _This flowchart depicts the validation checks and file movement between director
 - **Create a storage account** with an enabled hierarchical namespace.
 - **Create a container** named `sales` with directories: landing, staging, discarded.
 
-![ADLS Gen 2 Container Structure](Images/Screenshot%202025-02-27%20134617.png)
+![ADLS Gen 2 Container Structure](Images/ADLS%20Gen%202%20Container%20Structure.png)
 _Diagram showing the structure of the Storage Account._
 
 ### Databricks
