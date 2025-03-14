@@ -68,7 +68,7 @@ _Diagram showing the Azure Data Factory pipeline._
 
 ## Visual Representation of Pipeline Triggering
 
-![Data Ingestion and Triggering](Images/Screenshot%202025-02-27%20134545.png)
+![Data Ingestion and Triggering](Images/Data%20Ingestion%20and%20Triggering.png)
 _Diagram depicting the trigger and initial data processing._
 
 ## Enhancements
@@ -92,7 +92,7 @@ _Diagram depicting the trigger and initial data processing._
 
 ## Overall Pipeline View
 
-![Data Pipeline Overview](Images/Screenshot%202025-02-27%20134509.png)
+![Data Pipeline Overview](Images/Data%20Pipeline%20Overview.png)
 _An overview diagram of the data pipeline._
 
 ## Project Requirements
