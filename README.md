@@ -13,7 +13,7 @@ If both conditions are met, the file is moved to the staging folder; otherwise, 
 
 ## Visual Representation of Use-case
 
-![Data Validation Flow](Images/Screenshot%202025-02-27%20134803.png)
+![Data Validation Flow](Images\Data%Validation%Flow.png)
 _This flowchart depicts the validation checks and file movement between directories._
 
 ## Solution Components
