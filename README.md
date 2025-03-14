@@ -32,7 +32,7 @@ _Diagram showing the structure of the Storage Account._
 
 - **Create a Databricks Workspace** to execute Spark code for necessary data validation checks.
 
-![Databricks Workspace](Images\Databricks%20Workspace.png)
+![Databricks Workspace](Images\Databricks_Workspace.png)
 
 _Diagram showing the Databricks workspace._
 
@@ -51,7 +51,7 @@ _Diagram showing the connection between Data Factory, Databricks, ADLS Gen2, and
 - **Create an Azure SQL Database** for storing valid order statuses in a lookup table.
 - **Migrate customer data from ADLS Gen2 to the Azure SQL Database**.
 
-![Azure SQL Database](Images\Azure%20SQL%20Database.png)
+![Azure SQL Database](Images/Azure_SQL_Database.png)
 
 _Diagram showing the Azure SQL Database._
 
