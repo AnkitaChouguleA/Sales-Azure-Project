@@ -13,7 +13,7 @@ If both conditions are met, the file is moved to the staging folder; otherwise, 
 
 ## Visual Representation of Use-case
 
-![Data Validation Flow](Images/Screenshot%202025-02-27%20134803.png)
+![Data Validation Flow](Images\Screenshot 2025-02-27 134718.png)
 _This flowchart depicts the validation checks and file movement between directories._
 
 ## Solution Components
@@ -23,7 +23,7 @@ _This flowchart depicts the validation checks and file movement between director
 -   **Create a storage account** with an enabled hierarchical namespace.
 -   **Create a container** named `sales` with directories: landing, staging, discarded.
 
-![ADLS Gen 2 Container Structure](Images/Screenshot%202025-02-27%20134617.png)
+![ADLS Gen 2 Container Structure](Images\Screenshot 2025-02-27 134554.png)
 _Diagram showing the structure of the Storage Account._
 
 ### Databricks
@@ -103,7 +103,6 @@ _An overview diagram of the data pipeline._
 ## Solution
 
 -   Join tables (orders, order_items, customers) to calculate the required metrics.
-```
 
 
 
