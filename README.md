@@ -32,9 +32,9 @@ _Diagram showing the structure of the Storage Account._
 
 - **Create a Databricks Workspace** to execute Spark code for necessary data validation checks.
 
-![Databricks Workspace](Images/Screenshot%202025-02-27%20134631.png)
+### ![Databricks Workspace](Images/Screenshot%202025-02-27%20134631.png)
 
-_Diagram showing the Databricks workspace._
+### _Diagram showing the Databricks workspace._
 
 ### Data Factory
 
@@ -83,6 +83,10 @@ _Diagram depicting the trigger and initial data processing._
 ### Dynamic Filename Handling
 
 - Implement a parameterized approach to dynamically read and process files without hardcoding specific filenames.
+
+![Dynamic Filename Handling](Images/Dynamic%20Filename%20Handling.png)
+
+_Diagram depicting the dynamic filename handling process._
 
 ### Generalized Pipeline
 
