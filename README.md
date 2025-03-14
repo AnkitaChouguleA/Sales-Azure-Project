@@ -39,8 +39,8 @@ _Diagram showing the Databricks workspace._
 ### Data Factory
 
 - **Create a Data Factory Service** to orchestrate the data pipeline:
-    - Connect to Azure Data Lake Storage Gen2 (ADLS Gen2).
-    - Connect to Databricks using a Key Vault for storing passwords/secret keys.
+  - Connect to Azure Data Lake Storage Gen2 (ADLS Gen2).
+  - Connect to Databricks using a Key Vault for storing passwords/secret keys.
 
 ![Component Connections and Security](Images/Component%20Connections%20and%20Security.png)
 
@@ -115,3 +115,28 @@ _An overview diagram of the data pipeline._
 ## Solution
 
 - Join tables (orders, order_items, customers) to calculate the required metrics.
+
+## End-to-End Workflow
+
+🔹 **Orders Processing**
+
+* Triggered when `orders.csv` is uploaded to ADLS Gen2.
+* Validates duplicate order IDs and order status using Azure Databricks.
+* Moves valid files to staging and invalid files to discarded.
+
+🔹 **Order Items Processing (Amazon S3 → ADLS Gen2)**
+
+* Order items are stored in Amazon S3 (JSON format).
+* Azure Data Factory copies the data from S3 to ADLS Gen2 and converts it to CSV.
+
+🔹 **Customers Data Processing (Azure SQL DB → ADLS Gen2)**
+
+* Customer data is published in Azure SQL DB.
+* ADF copies it to ADLS Gen2 for further analysis.
+
+🔹 **Data Analysis & Reporting**
+
+* Joins orders, order items, and customers datasets.
+* Computes:
+    * ✅ Total orders per customer
+    * ✅ Total amount spent per customer
