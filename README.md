@@ -14,6 +14,7 @@ If both conditions are met, the file is moved to the staging folder; otherwise, 
 ## Visual Representation of Use-case
 
 ![Data Validation Flow](Images/Data%20Validation%20Flow.png)
+
 _This flowchart depicts the validation checks and file movement between directories._
 
 ## Solution Components
@@ -24,6 +25,7 @@ _This flowchart depicts the validation checks and file movement between director
 - **Create a container** named `sales` with directories: landing, staging, discarded.
 
 ![ADLS Gen 2 Container Structure](Images/ADLS%20Gen%202%20Container%20Structure.png)
+
 _Diagram showing the structure of the Storage Account._
 
 ### Databricks
@@ -31,6 +33,7 @@ _Diagram showing the structure of the Storage Account._
 - **Create a Databricks Workspace** to execute Spark code for necessary data validation checks.
 
 ![Databricks Workspace](Images/Screenshot%202025-02-27%20134631.png)
+
 _Diagram showing the Databricks workspace._
 
 ### Data Factory
@@ -39,7 +42,8 @@ _Diagram showing the Databricks workspace._
     - Connect to Azure Data Lake Storage Gen2 (ADLS Gen2).
     - Connect to Databricks using a Key Vault for storing passwords/secret keys.
 
-![Component Connections and Security](Images/Screenshot%202025-02-27%20134554.png)
+![Component Connections and Security](Images/Component%20Connections%20and%20Security.png)
+
 _Diagram showing the connection between Data Factory, Databricks, ADLS Gen2, and Azure SQL Database and the use of Key Vault._
 
 ### Azure SQL Database
@@ -48,6 +52,7 @@ _Diagram showing the connection between Data Factory, Databricks, ADLS Gen2, and
 - **Migrate customer data from ADLS Gen2 to the Azure SQL Database**.
 
 ![Azure SQL Database](Images/Screenshot%202025-02-27%20134718.png)
+
 _Diagram showing the Azure SQL Database._
 
 ### Databricks Notebook
@@ -63,12 +68,14 @@ _Diagram showing the Azure SQL Database._
 - Add the Databricks Notebook to the pipeline.
 - Configure a Storage Event Trigger to execute the pipeline when new files are added in landing folder.
 
-![Data Factory Pipeline](Images/Screenshot%202025-02-27%20134707.png)
+![Data Factory Pipeline](Images/Data%20Factory%20Pipeline.png)
+
 _Diagram showing the Azure Data Factory pipeline._
 
 ## Visual Representation of Pipeline Triggering
 
 ![Data Ingestion and Triggering](Images/Data%20Ingestion%20and%20Triggering.png)
+
 _Diagram depicting the trigger and initial data processing._
 
 ## Enhancements
@@ -93,6 +100,7 @@ _Diagram depicting the trigger and initial data processing._
 ## Overall Pipeline View
 
 ![Data Pipeline Overview](Images/Data%20Pipeline%20Overview.png)
+
 _An overview diagram of the data pipeline._
 
 ## Project Requirements
